@@ -1,0 +1,6 @@
+debug: false
+decode_snr_target: 999999
+modality: audio
+pretrained_model_path: GLips\exp\glips_audio\last-v1.ckpt
+root_dir: GLips
+test_file: test_labels.csv

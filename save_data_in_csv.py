@@ -113,9 +113,9 @@ if __name__ == "__main__":
 
     # Generate CSV files for each split and update the word-to-token mapping.
     create_split_label_csv(root_dir, "train", os.path.join(label_dir, "train_labels_subset.csv"),
-                           text_transform, limit_ratio=1/20, word2token_map=word2token_map)
+                           text_transform, word2token_map=word2token_map)
     create_split_label_csv(root_dir, "val", os.path.join(label_dir, "val_labels.csv"),
-                           text_transform, limit_ratio=1/20, word2token_map=word2token_map)
+                           text_transform, word2token_map=word2token_map)
     create_split_label_csv(root_dir, "test", os.path.join(label_dir, "test_labels.csv"),
                            text_transform, word2token_map=word2token_map)
 

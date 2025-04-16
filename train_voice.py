@@ -13,5 +13,5 @@ subprocess.run([
     "--num-nodes", "1",
     "--gpus", "1",
     "--max-frames", "512",
-    "--max-epochs", "1"
+    "--max-epochs", "4"
 ])
