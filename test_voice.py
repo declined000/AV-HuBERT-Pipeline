@@ -6,5 +6,5 @@ subprocess.run([
     "--modality", "audio",
     "--root-dir", "GLips",
     "--test-file", "test_labels.csv",
-    "--pretrained-model-path", "GLips\\exp\\glips_audio\\last-v3.ckpt"
+    "--pretrained-model-path", "GLips\\exp\\glips_audio\\last-v1.ckpt"
 ])
