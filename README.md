@@ -12,36 +12,37 @@ The project involves full preprocessing, inference, and results evaluation acros
 
 ```mermaid
 flowchart TD
-    A[GLips Dataset<br/>Original MP4 + WAV files] --> B[Video Preprocessing<br/>lip.py]
-    B --> C[Lip Region Extraction<br/>video_to_audio_lips.py]
-    C --> D[Face Detection<br/>dlib + shape_predictor_68]
-    D --> E[Lip Cropping<br/>OpenCV + ffmpeg]
-    E --> F[Processed Videos<br/>*_lip_movement.mp4]
+    A[GLips Dataset<br/>Original MP4 + WAV files] --> B[Video Selection & Copying<br/>lip.py - copy_test_videos]
+    B --> C[Video Preprocessing Pipeline<br/>video_to_audio_lips.py]
     
-    F --> G[AV-HuBERT Model Loading<br/>nguyenvulebinh/AV-HuBERT-MuAViC-de]
-    A --> H[Audio Files<br/>Original WAV]
+    C --> D[Video Normalization<br/>Padding & Resizing to 640x480]
+    D --> E[Face & Landmark Detection<br/>dlib + shape_predictor_68]
+    E --> F[Lip Region Extraction & Cropping<br/>OpenCV + ffmpeg processing]
+    F --> G[Processed Videos<br/>*_lip_movement.mp4]
     
-    G --> I[Feature Loading<br/>load_data.py]
-    H --> I
-    F --> I
+    A --> H[Audio Files<br/>Original WAV files]
     
-    I --> J[Audio-Only Inference<br/>Audio + Dummy Video]
-    I --> K[Video-Only Inference<br/>Lip Video + Dummy Audio]
-    I --> L[Multimodal Inference<br/>Audio + Video Combined]
+    I[AV-HuBERT Model Loading<br/>nguyenvulebinh/AV-HuBERT-MuAViC-de] --> J[Feature Loading<br/>load_data.py]
+    G --> J
+    H --> J
     
-    J --> M[Text Generation<br/>Speech2TextTokenizer]
-    K --> M
-    L --> M
+    J --> K[Audio-Only Inference<br/>Audio + Dummy Video]
+    J --> L[Video-Only Inference<br/>Lip Video + Dummy Audio]
+    J --> M[Multimodal Inference<br/>Audio + Video Combined]
     
-    M --> N[Results Export<br/>inference_results.csv]
+    K --> N[Text Generation<br/>Speech2TextTokenizer]
+    L --> N
+    M --> N
     
-    N --> O[Performance Analysis<br/>Audio vs Video vs Combined]
+    N --> O[Results Export<br/>inference_results.csv]
+    
+    O --> P[Performance Analysis<br/>Audio vs Video vs Combined]
     
     style A fill:#e1f5fe
-    style F fill:#f3e5f5
-    style G fill:#fff3e0
-    style N fill:#e8f5e8
-    style O fill:#fff8e1
+    style G fill:#f3e5f5
+    style I fill:#fff3e0
+    style O fill:#e8f5e8
+    style P fill:#fff8e1
 ```
 
 ---
