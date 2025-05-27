@@ -8,6 +8,42 @@ This repository contains the implementation and results of a Research Workshop p
 
 The project involves full preprocessing, inference, and results evaluation across thousands of files.
 
+## 🔄 End-to-End Pipeline
+
+```mermaid
+flowchart TD
+    A[GLips Dataset<br/>Original MP4 + WAV files] --> B[Video Preprocessing<br/>lip.py]
+    B --> C[Lip Region Extraction<br/>video_to_audio_lips.py]
+    C --> D[Face Detection<br/>dlib + shape_predictor_68]
+    D --> E[Lip Cropping<br/>OpenCV + ffmpeg]
+    E --> F[Processed Videos<br/>*_lip_movement.mp4]
+    
+    F --> G[AV-HuBERT Model Loading<br/>nguyenvulebinh/AV-HuBERT-MuAViC-de]
+    A --> H[Audio Files<br/>Original WAV]
+    
+    G --> I[Feature Loading<br/>load_data.py]
+    H --> I
+    F --> I
+    
+    I --> J[Audio-Only Inference<br/>Audio + Dummy Video]
+    I --> K[Video-Only Inference<br/>Lip Video + Dummy Audio]
+    I --> L[Multimodal Inference<br/>Audio + Video Combined]
+    
+    J --> M[Text Generation<br/>Speech2TextTokenizer]
+    K --> M
+    L --> M
+    
+    M --> N[Results Export<br/>inference_results.csv]
+    
+    N --> O[Performance Analysis<br/>Audio vs Video vs Combined]
+    
+    style A fill:#e1f5fe
+    style F fill:#f3e5f5
+    style G fill:#fff3e0
+    style N fill:#e8f5e8
+    style O fill:#fff8e1
+```
+
 ---
 
 ## 🔧 What the Project Does
