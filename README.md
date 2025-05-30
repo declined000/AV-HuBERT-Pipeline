@@ -31,7 +31,7 @@ flowchart TD
     M --> N[Feature Stacking<br/>4-frame concatenation]
     N --> O[Audio-Video Synchronization<br/>Length matching & padding]
     O --> P[Audio Feature Normalization<br/>Layer normalization]
-    P --> Q[Tensor Conversion<br/>Audio: [F,T] Video: [C,T,H,W]]
+    P --> Q[Tensor Conversion<br/>Audio: (F,T) Video: (C,T,H,W)]
     Q --> J
     
     J --> R[Audio-Only Inference<br/>Audio + Dummy Video]
