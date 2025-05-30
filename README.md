@@ -12,39 +12,39 @@ The project involves full preprocessing, inference, and results evaluation acros
 
 ```mermaid
 flowchart TD
-    A[GLips Dataset] --> B[Video Selection]
-    B --> C[Video Preprocessing]
+    A[GLips Dataset<br/>Original MP4 + WAV files] --> B[Video Selection & Copying<br/>lip.py - copy_test_videos]
+    B --> C[Video Preprocessing Pipeline<br/>video_to_audio_lips.py]
     
-    C --> D[Video Normalization]
-    D --> E[Face Detection]
-    E --> F[Lip Extraction]
-    F --> G[Lip Videos]
+    C --> D[Video Normalization<br/>Padding & Resizing to 640x480]
+    D --> E[Face & Landmark Detection<br/>dlib + shape_predictor_68]
+    E --> F[Lip Region Extraction & Cropping<br/>OpenCV + ffmpeg processing]
+    F --> G[Processed Videos<br/>*_lip_movement.mp4]
     
-    A --> H[Audio Files]
+    A --> H[Audio Files<br/>Original WAV files]
     
-    I[AV-HuBERT Model] --> J[Feature Loading]
+    I[AV-HuBERT Model Loading<br/>nguyenvulebinh/AV-HuBERT-MuAViC-de] --> J[Feature Loading<br/>load_data.py]
     G --> J
-    H --> K[Audio Processing]
+    H --> K[Audio Processing<br/>load_data.py]
     
-    K --> L[Sample Rate Check]
-    L --> M[Filter Bank Features]
-    M --> N[Feature Stacking]
-    N --> O[Audio-Video Sync]
-    O --> P[Normalization]
-    P --> Q[Tensor Conversion]
+    K --> L[Audio Sample Rate Validation<br/>Ensure 16kHz mono]
+    L --> M[Log Filter Bank Features<br/>python_speech_features.logfbank]
+    M --> N[Feature Stacking<br/>4-frame concatenation]
+    N --> O[Audio-Video Synchronization<br/>Length matching & padding]
+    O --> P[Audio Feature Normalization<br/>Layer normalization]
+    P --> Q[Tensor Conversion<br/>Audio and Video formats]
     Q --> J
     
-    J --> R[Audio-Only Inference]
-    J --> S[Video-Only Inference]
-    J --> T[Multimodal Inference]
+    J --> R[Audio-Only Inference<br/>Audio + Dummy Video]
+    J --> S[Video-Only Inference<br/>Lip Video + Dummy Audio]
+    J --> T[Multimodal Inference<br/>Audio + Video Combined]
     
-    R --> U[Text Generation]
+    R --> U[Text Generation<br/>Speech2TextTokenizer]
     S --> U
     T --> U
     
-    U --> V[Results Export]
+    U --> V[Results Export<br/>inference_results.csv]
     
-    V --> W[Performance Analysis]
+    V --> W[Performance Analysis<br/>Audio vs Video vs Combined]
     
     style A fill:#e1f5fe
     style G fill:#f3e5f5
