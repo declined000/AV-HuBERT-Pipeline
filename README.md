@@ -12,39 +12,39 @@ The project involves full preprocessing, inference, and results evaluation acros
 
 ```mermaid
 flowchart TD
-    A[GLips Dataset<br/>Original MP4 + WAV files] --> B[Video Selection & Copying<br/>lip.py - copy_test_videos]
-    B --> C[Video Preprocessing Pipeline<br/>video_to_audio_lips.py]
+    A[GLips Dataset Original MP4 WAV files] --> B[Video Selection and Copying]
+    B --> C[Video Preprocessing Pipeline]
     
-    C --> D[Video Normalization<br/>Padding & Resizing to 640x480]
-    D --> E[Face & Landmark Detection<br/>dlib + shape_predictor_68]
-    E --> F[Lip Region Extraction & Cropping<br/>OpenCV + ffmpeg processing]
-    F --> G[Processed Videos<br/>*_lip_movement.mp4]
+    C --> D[Video Normalization Padding Resizing]
+    D --> E[Face and Landmark Detection]
+    E --> F[Lip Region Extraction and Cropping]
+    F --> G[Processed Videos lip_movement.mp4]
     
-    A --> H[Original Audio Files<br/>WAV format]
+    A --> H[Original Audio Files WAV format]
     
-    I[AV-HuBERT Model Loading<br/>nguyenvulebinh/AV-HuBERT-MuAViC-de] --> J[Feature Loading & Conversion<br/>load_data.py]
+    I[AV-HuBERT Model Loading] --> J[Feature Loading and Conversion]
     G --> J
-    H --> K[Audio Processing<br/>load_data.py]
+    H --> K[Audio Processing]
     
-    K --> L[Audio Sample Rate Validation<br/>Ensure 16kHz mono]
-    L --> M[Log Filter Bank Features<br/>python_speech_features.logfbank]
-    M --> N[Feature Stacking<br/>4-frame concatenation]
-    N --> O[Audio-Video Synchronization<br/>Length matching & padding]
-    O --> P[Audio Feature Normalization<br/>Layer normalization]
-    P --> Q[Tensor Conversion<br/>Audio: (F,T) Video: (C,T,H,W)]
+    K --> L[Audio Sample Rate Validation 16kHz mono]
+    L --> M[Log Filter Bank Features]
+    M --> N[Feature Stacking 4-frame concatenation]
+    N --> O[Audio-Video Synchronization]
+    O --> P[Audio Feature Normalization]
+    P --> Q[Tensor Conversion Audio and Video]
     Q --> J
     
-    J --> R[Audio-Only Inference<br/>Audio + Dummy Video]
-    J --> S[Video-Only Inference<br/>Lip Video + Dummy Audio]
-    J --> T[Multimodal Inference<br/>Audio + Video Combined]
+    J --> R[Audio-Only Inference]
+    J --> S[Video-Only Inference]
+    J --> T[Multimodal Inference]
     
-    R --> U[Text Generation<br/>Speech2TextTokenizer]
+    R --> U[Text Generation]
     S --> U
     T --> U
     
-    U --> V[Results Export<br/>inference_results.csv]
+    U --> V[Results Export CSV]
     
-    V --> W[Performance Analysis<br/>Audio vs Video vs Combined]
+    V --> W[Performance Analysis]
     
     style A fill:#e1f5fe
     style G fill:#f3e5f5
