@@ -12,26 +12,26 @@ The project involves full preprocessing, inference, and results evaluation acros
 
 ```mermaid
 flowchart TD
-    A[GLips Dataset Original MP4 WAV files] --> B[Video Selection and Copying]
-    B --> C[Video Preprocessing Pipeline]
+    A[GLips Dataset] --> B[Video Selection]
+    B --> C[Video Preprocessing]
     
-    C --> D[Video Normalization Padding Resizing]
-    D --> E[Face and Landmark Detection]
-    E --> F[Lip Region Extraction and Cropping]
-    F --> G[Processed Videos lip_movement.mp4]
+    C --> D[Video Normalization]
+    D --> E[Face Detection]
+    E --> F[Lip Extraction]
+    F --> G[Lip Videos]
     
-    A --> H[Original Audio Files WAV format]
+    A --> H[Audio Files]
     
-    I[AV-HuBERT Model Loading] --> J[Feature Loading and Conversion]
+    I[AV-HuBERT Model] --> J[Feature Loading]
     G --> J
     H --> K[Audio Processing]
     
-    K --> L[Audio Sample Rate Validation 16kHz mono]
-    L --> M[Log Filter Bank Features]
-    M --> N[Feature Stacking 4-frame concatenation]
-    N --> O[Audio-Video Synchronization]
-    O --> P[Audio Feature Normalization]
-    P --> Q[Tensor Conversion Audio and Video]
+    K --> L[Sample Rate Check]
+    L --> M[Filter Bank Features]
+    M --> N[Feature Stacking]
+    N --> O[Audio-Video Sync]
+    O --> P[Normalization]
+    P --> Q[Tensor Conversion]
     Q --> J
     
     J --> R[Audio-Only Inference]
@@ -42,7 +42,7 @@ flowchart TD
     S --> U
     T --> U
     
-    U --> V[Results Export CSV]
+    U --> V[Results Export]
     
     V --> W[Performance Analysis]
     
