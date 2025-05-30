@@ -20,29 +20,38 @@ flowchart TD
     E --> F[Lip Region Extraction & Cropping<br/>OpenCV + ffmpeg processing]
     F --> G[Processed Videos<br/>*_lip_movement.mp4]
     
-    A --> H[Audio Files<br/>Original WAV files]
+    A --> H[Original Audio Files<br/>WAV format]
     
-    I[AV-HuBERT Model Loading<br/>nguyenvulebinh/AV-HuBERT-MuAViC-de] --> J[Feature Loading<br/>load_data.py]
+    I[AV-HuBERT Model Loading<br/>nguyenvulebinh/AV-HuBERT-MuAViC-de] --> J[Feature Loading & Conversion<br/>load_data.py]
     G --> J
-    H --> J
+    H --> K[Audio Processing<br/>load_data.py]
     
-    J --> K[Audio-Only Inference<br/>Audio + Dummy Video]
-    J --> L[Video-Only Inference<br/>Lip Video + Dummy Audio]
-    J --> M[Multimodal Inference<br/>Audio + Video Combined]
+    K --> L[Audio Sample Rate Validation<br/>Ensure 16kHz mono]
+    L --> M[Log Filter Bank Features<br/>python_speech_features.logfbank]
+    M --> N[Feature Stacking<br/>4-frame concatenation]
+    N --> O[Audio-Video Synchronization<br/>Length matching & padding]
+    O --> P[Audio Feature Normalization<br/>Layer normalization]
+    P --> Q[Tensor Conversion<br/>Audio: [F,T] Video: [C,T,H,W]]
+    Q --> J
     
-    K --> N[Text Generation<br/>Speech2TextTokenizer]
-    L --> N
-    M --> N
+    J --> R[Audio-Only Inference<br/>Audio + Dummy Video]
+    J --> S[Video-Only Inference<br/>Lip Video + Dummy Audio]
+    J --> T[Multimodal Inference<br/>Audio + Video Combined]
     
-    N --> O[Results Export<br/>inference_results.csv]
+    R --> U[Text Generation<br/>Speech2TextTokenizer]
+    S --> U
+    T --> U
     
-    O --> P[Performance Analysis<br/>Audio vs Video vs Combined]
+    U --> V[Results Export<br/>inference_results.csv]
+    
+    V --> W[Performance Analysis<br/>Audio vs Video vs Combined]
     
     style A fill:#e1f5fe
     style G fill:#f3e5f5
     style I fill:#fff3e0
-    style O fill:#e8f5e8
-    style P fill:#fff8e1
+    style Q fill:#e8f6e8
+    style V fill:#e8f5e8
+    style W fill:#fff8e1
 ```
 
 ---
